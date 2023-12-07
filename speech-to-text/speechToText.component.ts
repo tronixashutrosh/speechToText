@@ -34,9 +34,6 @@ export class HomeComponent implements OnInit, OnDestroy {
    */
   stopSpeechRecognition() {
     const action = document.getElementById("action");
-    const recognition =
-      new webkitSpeechRecognition() || new SpeechRecognition();
-    recognition.stop();
     this.voiceRecognition.stop();
     this.isUserSpeaking = false;
     action.innerHTML = "";
