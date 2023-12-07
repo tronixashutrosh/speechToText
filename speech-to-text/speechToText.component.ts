@@ -58,8 +58,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       // this.searchForm.controls.searchText.setValue(input);
 
       //Use thsi if not using form
+      if(input){
       speechTxt = speechTxt.concat(" ", input);
       this.myNote = speechTxt;
+      }
     });
     });
   }
