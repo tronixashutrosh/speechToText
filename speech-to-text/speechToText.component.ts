@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { VoiceRecognitionService } from 'src/app/services/voice-recognition.service';
+import { VoiceRecognitionService } from 'src/app/services/voice-recognition.service'; //Import from where you have stored your file
 @Component({
   selector: 'app-home',
   templateUrl: './example.component.html',
@@ -11,6 +11,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Keep active api calls subscription.
   public searchForm: FormGroup;
   public isUserSpeaking: boolean = false;
+  public myNote: string = ""
+  
   constructor(
     private fb: FormBuilder,
     private datePipe: DatePipe,
@@ -23,21 +25,29 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.myNote = "This is the initial value of note from API" //If not using form initiate note value like this
     this.initVoiceInput();
   }
 
   /**
    * @description Function to stop recording.
    */
-  stopRecording() {
+  stopSpeechRecognition() {
+    const action = document.getElementById("action");
+    const recognition =
+      new webkitSpeechRecognition() || new SpeechRecognition();
+    recognition.stop();
     this.voiceRecognition.stop();
     this.isUserSpeaking = false;
+    action.innerHTML = "";
   }
 
   /**
    * @description Function for initializing voice input so user can chat with machine.
    */
   initVoiceInput() {
+   let speechTxt = this.myNote; //If not using form this will make a local copy
+    
     // Subscription for initializing and this will call when user stopped speaking.
     this.voiceRecognition.init().subscribe(() => {
       // User has stopped recording
@@ -47,16 +57,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     // Subscription to detect user input from voice to text.
     this.voiceRecognition.speechInput().subscribe((input) => {
       // Set voice text output to
-      this.searchForm.controls.searchText.setValue(input);
+      // Use this is using form
+      // this.searchForm.controls.searchText.setValue(input);
+
+      //Use thsi if not using form
+      speechTxt = speechTxt.concat(" ", input);
+      this.myNote = speechTxt;
+    });
     });
   }
 
   /**
    * @description Function to enable voice input.
    */
-  startRecording() {
+  runSpeechRecognition = () => {
+    const action = document.getElementById("action");
+    action.innerHTML = "Listening...";
     this.isUserSpeaking = true;
     this.voiceRecognition.start();
-    this.searchForm.controls.searchText.reset();
-  }
+  };
 }
