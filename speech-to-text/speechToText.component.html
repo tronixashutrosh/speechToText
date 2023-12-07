@@ -1,0 +1,22 @@
+<!-- Edit your html file as you want keep in mid to add two button for starting and stoping your speech recognisition  -->
+
+<div class="row m-0 justify-content-end note-footer">
+                    <div class="row m-0 align-items-center justify-content-center cursor-pointer"
+                        (click)="imagesUpload.click()">
+                        <img src="" alt="attachment">
+                    </div>
+                    <div class="row m-0 align-items-center justify-content-center p-1 cursor-pointer">
+                        <span id="action"></span>
+                        <img *ngIf="!isUserSpeaking" src="./assets/images/profile/audiorecord.svg" alt="audiorecord"
+                            (click)="runSpeechRecognition()">
+
+                        <span class="mute-button" (click)="stopSpeechRecognition()" *ngIf="isUserSpeaking">
+                            <svg data-name="Layer 1" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" height="25"
+                                width="25">
+                                <path
+                                    d="M24 33a8 8 0 0 0 8-8v-6.17l8.41-8.41a2 2 0 0 0-2.83-2.83L32 13.17V9a8 8 0 0 0-16 0v16a7.94 7.94 0 0 0 .77 3.4l-1.49 1.49A9.93 9.93 0 0 1 14 25a2 2 0 0 0-4 0 13.92 13.92 0 0 0 2.38 7.79l-4.79 4.8a2 2 0 1 0 2.83 2.83l4.65-4.65A13.94 13.94 0 0 0 22 38.84V43h-1a2 2 0 0 0 0 4h6a2 2 0 0 0 0-4h-1v-4.16A14 14 0 0 0 38 25a2 2 0 0 0-4 0 10 10 0 0 1-16.09 7.92l1.43-1.43A8 8 0 0 0 24 33Zm4-8a4 4 0 0 1-4 4 4 4 0 0 1-1.75-.42L28 22.83Zm-8 0V9a4 4 0 0 1 8 0v8.17l-8 8V25Z"
+                                    fill="#057cc3" class="fill-000000"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
